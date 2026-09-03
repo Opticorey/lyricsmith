@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lyricsmith Console — Live</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF0F1; --surface:#FFFFFF; --surface-2:#E4E7EA; --surface-3:#DADEE2;
+    --ink:#1C2024; --ink-muted:#5B6470; --ink-faint:#889099;
+    --accent:#5B4B8A; --accent-ink:#FFFFFF; --accent-soft:#EDE9F6;
+    --line:#D3D7DA; --line-strong:#B7BDC2;
+    --pass:#2E7D5B; --pass-soft:#E1F1EA;
+    --meh:#95700F; --meh-soft:#F7ECD3;
+    --fail:#A5342E; --fail-soft:#F7E1DF;
+    --shadow: 0 1px 2px rgba(20,22,30,.06), 0 6px 18px -8px rgba(20,22,30,.14);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14161C; --surface:#1D2029; --surface-2:#262A35; --surface-3:#2F3441;
+      --ink:#EDEFF2; --ink-muted:#9AA1AC; --ink-faint:#6B7280;
+      --accent:#B0A0E8; --accent-ink:#191225; --accent-soft:#2A2440;
+      --line:#333844; --line-strong:#454C5B;
+      --pass:#5FC79A; --pass-soft:#173229;
+      --meh:#E3B94E; --meh-soft:#332A10;
+      --fail:#EB7873; --fail-soft:#3A1E1C;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -10px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14161C; --surface:#1D2029; --surface-2:#262A35; --surface-3:#2F3441;
+    --ink:#EDEFF2; --ink-muted:#9AA1AC; --ink-faint:#6B7280;
+    --accent:#B0A0E8; --accent-ink:#191225; --accent-soft:#2A2440;
+    --line:#333844; --line-strong:#454C5B;
+    --pass:#5FC79A; --pass-soft:#173229;
+    --meh:#E3B94E; --meh-soft:#332A10;
+    --fail:#EB7873; --fail-soft:#3A1E1C;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -10px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  html{color-scheme:light dark;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; font-variant-numeric:tabular-nums;}
+  .serif{font-family:"Fraunces", Georgia, serif;}
+  h1,h2,h3{text-wrap:balance; margin:0;}
+  a{color:var(--accent);}
+  button{font-family:inherit;}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+
+  .page{max-width:1180px; margin:0 auto; padding:28px 24px 64px;}
+
+  /* ---------- topbar ---------- */
+  .topbar{
+    display:flex; align-items:baseline; justify-content:space-between; gap:16px;
+    padding-bottom:20px; margin-bottom:24px; border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .brand{display:flex; align-items:baseline; gap:12px;}
+  .brand h1{font-family:"Fraunces", Georgia, serif; font-weight:600; font-size:1.7rem; letter-spacing:-.01em;}
+  .brand .build-tag{
+    font-family:"IBM Plex Mono", monospace; font-size:.68rem; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--pass); border:1px solid var(--pass); border-radius:100px; padding:3px 9px;
+  }
+  .topbar .tagline{color:var(--ink-muted); font-size:.92rem; max-width:40ch;}
+
+  /* ---------- console layout ---------- */
+  .console{display:grid; grid-template-columns:minmax(280px,340px) 1fr; gap:22px; align-items:start;}
+  @media (max-width:860px){ .console{grid-template-columns:1fr;} }
+
+  .rail{display:flex; flex-direction:column; gap:18px;}
+  .rail-group{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px 16px 18px;
+  }
+  .rail-group h2{
+    font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-muted); font-weight:600;
+    margin-bottom:12px;
+  }
+
+  .genre-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .genre-card{
+    text-align:left; cursor:pointer; background:var(--surface-2); border:1px solid var(--line);
+    border-radius:8px; padding:9px 10px; color:var(--ink); transition:border-color .12s, background .12s;
+  }
+  .genre-card:hover{border-color:var(--line-strong);}
+  .genre-card .g-name{display:block; font-weight:600; font-size:.86rem;}
+  .genre-card .g-meta{display:block; font-family:"IBM Plex Mono", monospace; font-size:.66rem; color:var(--ink-muted); margin-top:2px;}
+  .genre-card[aria-pressed="true"]{
+    background:var(--accent-soft); border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset;
+  }
+
+  .field{display:block; margin-bottom:11px;}
+  .field:last-child{margin-bottom:0;}
+  .field span{display:block; font-size:.74rem; color:var(--ink-muted); margin-bottom:5px;}
+  .field input{
+    width:100%; padding:8px 10px; border-radius:7px; border:1px solid var(--line-strong);
+    background:var(--surface); color:var(--ink); font-size:.88rem; font-family:inherit;
+  }
+  .hint{font-size:.73rem; color:var(--ink-faint); margin-top:10px; line-height:1.5;}
+
+  .engine-toggle{display:flex; border:1px solid var(--line-strong); border-radius:8px; overflow:hidden;}
+  .engine-toggle button{
+    flex:1; padding:9px 6px; background:var(--surface); border:none; color:var(--ink-muted);
+    font-size:.82rem; font-weight:600; cursor:pointer; border-right:1px solid var(--line-strong);
+  }
+  .engine-toggle button:last-child{border-right:none;}
+  .engine-toggle button[aria-pressed="true"]{background:var(--accent); color:var(--accent-ink);}
+  .engine-toggle button:disabled{cursor:not-allowed; opacity:.45;}
+
+  .callout{
+    margin-top:10px; padding:9px 11px; border-radius:8px; font-size:.76rem; line-height:1.5;
+    border:1px solid; display:flex; gap:8px;
+  }
+  .callout.warn{background:var(--meh-soft); border-color:var(--meh); color:var(--ink);}
+  .callout.info{background:var(--surface-2); border-color:var(--line-strong); color:var(--ink-muted);}
+  .callout.bad{background:var(--fail-soft); border-color:var(--fail); color:var(--ink);}
+  .callout .dot{flex:none; width:6px; height:6px; border-radius:50%; margin-top:6px; background:currentColor;}
+
+  .explain-toggle{display:flex; align-items:center; gap:8px; font-size:.82rem; cursor:pointer;}
+  .explain-toggle input{accent-color:var(--accent);}
+
+  .scaffold-table{width:100%; border-collapse:collapse; margin-top:12px; font-size:.74rem;}
+  .scaffold-table th{text-align:left; color:var(--ink-muted); font-weight:600; padding:4px 6px; border-bottom:1px solid var(--line);}
+  .scaffold-table td{padding:4px 6px; border-bottom:1px solid var(--line); font-family:"IBM Plex Mono",monospace;}
+  .scaffold-table tr:last-child td{border-bottom:none;}
+
+  .cta{
+    width:100%; padding:12px; border-radius:8px; border:none; background:var(--accent); color:var(--accent-ink);
+    font-size:.92rem; font-weight:600; cursor:pointer; box-shadow:var(--shadow);
+  }
+  .cta:active{transform:translateY(1px);}
+  .cta.loading{opacity:.75; cursor:progress;}
+  .cta:disabled{opacity:.6; cursor:not-allowed;}
+
+  /* ---------- sheet (output) ---------- */
+  .sheet{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    padding:26px 30px 30px; box-shadow:var(--shadow); min-height:520px;
+  }
+  .sheet-head{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:6px;}
+  .sheet-title{font-family:"Fraunces", Georgia, serif; font-weight:600; font-size:1.9rem; letter-spacing:-.01em;}
+  .sheet-meta{font-family:"IBM Plex Mono", monospace; font-size:.72rem; color:var(--ink-muted); margin-top:4px;}
+  .badge{
+    display:inline-flex; align-items:center; gap:5px; font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    font-weight:600; padding:4px 9px; border-radius:100px; letter-spacing:.02em; white-space:nowrap;
+  }
+  .badge.pass{background:var(--pass-soft); color:var(--pass);}
+  .badge.meh{background:var(--meh-soft); color:var(--meh);}
+  .badge.fail{background:var(--fail-soft); color:var(--fail);}
+  .badge.neutral{background:var(--surface-2); color:var(--ink-muted);}
+
+  .sheet-sub{color:var(--ink-muted); font-size:.83rem; margin:14px 0 22px; padding-bottom:18px; border-bottom:1px dashed var(--line);}
+
+  .section-block{margin-bottom:22px;}
+  .section-block:last-child{margin-bottom:0;}
+  .section-label{
+    font-family:"IBM Plex Mono", monospace; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:8px; display:flex; align-items:center; gap:8px;
+  }
+  .section-label .scheme{color:var(--ink-faint); text-transform:none; letter-spacing:0;}
+  .lyric-line{
+    display:flex; align-items:baseline; gap:12px; font-family:"Fraunces", Georgia, serif;
+    font-size:1.14rem; line-height:1.75; color:var(--ink);
+  }
+  .rhyme-tag{
+    flex:none; width:20px; height:20px; border-radius:5px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:"IBM Plex Mono", monospace; font-size:.65rem; font-weight:700; color:var(--ink-muted);
+    background:var(--surface-2); margin-top:3px;
+  }
+
+  .warn-box{
+    margin-top:24px; padding:12px 14px; background:var(--meh-soft); border:1px solid var(--meh); border-radius:8px;
+    font-size:.78rem; color:var(--ink);
+  }
+  .warn-box strong{color:var(--meh);}
+
+  .empty-state{color:var(--ink-muted); font-size:.9rem; padding:40px 4px; text-align:center;}
+
+  .error-box{
+    margin-top:16px; padding:12px 14px; background:var(--fail-soft); border:1px solid var(--fail); border-radius:8px;
+    font-size:.82rem; color:var(--ink);
+  }
+  .error-box strong{color:var(--fail);}
+
+  /* ---------- report ---------- */
+  .report{
+    margin-top:40px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:26px 30px 30px;
+  }
+  .report h2{font-family:"Fraunces", Georgia, serif; font-weight:600; font-size:1.25rem; margin-bottom:4px;}
+  .report .report-sub{color:var(--ink-muted); font-size:.85rem; margin-bottom:24px; max-width:64ch; line-height:1.6;}
+
+  .report-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:28px;}
+  @media (max-width:860px){ .report-grid{grid-template-columns:1fr;} }
+
+  .report-card h3{font-size:.78rem; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-muted); margin-bottom:14px; font-weight:600;}
+
+  .rounds{display:flex; flex-direction:column; gap:10px;}
+  .round-row{display:grid; grid-template-columns:64px 1fr 46px; align-items:center; gap:10px;}
+  .round-row .r-label{font-family:"IBM Plex Mono",monospace; font-size:.72rem; color:var(--ink-muted);}
+  .round-row .r-track{height:10px; background:var(--surface-2); border-radius:100px; overflow:hidden;}
+  .round-row .r-fill{height:100%; border-radius:100px;}
+  .round-row .r-score{font-family:"IBM Plex Mono",monospace; font-size:.76rem; text-align:right; font-weight:600;}
+  .threshold-note{font-size:.7rem; color:var(--ink-faint); margin-top:2px; font-family:"IBM Plex Mono",monospace;}
+
+  .headtohead{display:flex; flex-direction:column; gap:8px; margin-top:2px;}
+  .h2h-row{display:grid; grid-template-columns:120px 1fr 40px; align-items:center; gap:10px;}
+  .h2h-row .h-label{font-size:.76rem; color:var(--ink-muted);}
+  .h2h-row .h-track{height:16px; background:var(--surface-2); border-radius:5px; overflow:hidden;}
+  .h2h-row .h-fill{height:100%;}
+  .h2h-row .h-score{font-family:"IBM Plex Mono",monospace; font-size:.78rem; font-weight:600; text-align:right;}
+
+  .report-note{font-size:.8rem; color:var(--ink-muted); line-height:1.65; margin-top:16px;}
+  .report-note code{
+    font-family:"IBM Plex Mono",monospace; font-size:.85em; background:var(--surface-2); padding:1px 5px; border-radius:4px;
+  }
+
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); font-size:.76rem; color:var(--ink-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+
+  @media (prefers-reduced-motion: no-preference){
+    .sheet, .rail-group{ animation:fade-up .35s ease both; }
+    @keyframes fade-up{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="topbar">
+    <div>
+      <div class="brand">
+        <h1>Lyricsmith Console</h1>
+        <span class="build-tag">live</span>
+      </div>
+      <p class="tagline">Structure, rhyme, and meter enforced as hard constraints — the line content is filled live, right now, by a template engine or by Claude.</p>
+    </div>
+  </header>
+
+  <main class="console">
+
+    <!-- ============ CONTROL RAIL ============ -->
+    <section class="rail" aria-label="Controls">
+
+      <div class="rail-group">
+        <h2>1 · Genre</h2>
+        <div class="genre-grid" id="genreGrid"></div>
+      </div>
+
+      <div class="rail-group">
+        <h2>2 · Brief</h2>
+        <label class="field"><span>Theme</span><input id="themeInput" type="text"></label>
+        <label class="field"><span>Mood</span><input id="moodInput" type="text"></label>
+        <p class="hint">This runs the real lyricsmith pipeline server-side — every generation below is produced fresh from whatever theme and mood you enter, not replayed from a fixture.</p>
+      </div>
+
+      <div class="rail-group">
+        <h2>3 · Engine</h2>
+        <div class="engine-toggle" id="engineToggle">
+          <button id="btnClaude" type="button">Claude</button>
+          <button id="btnTemplate" type="button">Template</button>
+        </div>
+        <div id="engineCallout"></div>
+      </div>
+
+      <div class="rail-group">
+        <label class="explain-toggle"><input type="checkbox" id="explainToggle"> Show constraint plan first (<code class="mono" style="font-size:.85em">--explain</code>)</label>
+        <div id="scaffoldPanel" hidden></div>
+      </div>
+
+      <button class="cta" id="generateBtn" type="button">Generate</button>
+    </section>
+
+    <!-- ============ OUTPUT SHEET ============ -->
+    <section class="sheet" aria-label="Generated lyrics" id="sheet"></section>
+
+  </main>
+
+  <!-- ============ ENGINEERING REPORT ============ -->
+  <section class="report" aria-label="Engineering report">
+    <h2>Engineering report</h2>
+    <p class="report-sub">Historical context on the two engines above, from the build's own critic gauntlet — not a score for the specific song you just generated. Every number here is a real critic score from that process.</p>
+
+    <div class="report-grid">
+      <div class="report-card">
+        <h3>Template engine · 3-round gauntlet</h3>
+        <div class="rounds">
+          <div class="round-row">
+            <span class="r-label mono">Round 1</span>
+            <span class="r-track"><span class="r-fill" style="width:5%; background:var(--fail)"></span></span>
+            <span class="r-score" style="color:var(--fail)">0.5</span>
+          </div>
+          <div class="round-row">
+            <span class="r-label mono">Round 2</span>
+            <span class="r-track"><span class="r-fill" style="width:20%; background:var(--fail)"></span></span>
+            <span class="r-score" style="color:var(--fail)">2.0</span>
+          </div>
+          <div class="round-row">
+            <span class="r-label mono">Round 3</span>
+            <span class="r-track"><span class="r-fill" style="width:35%; background:var(--meh)"></span></span>
+            <span class="r-score" style="color:var(--meh)">3.5</span>
+          </div>
+        </div>
+        <p class="threshold-note">pass threshold: 7.0 / 10 — never reached in 3 allowed rounds</p>
+        <p class="report-note">Real progress each round (word-salad → grammatical sentences → a working chorus hook), but round 3 still shipped <span class="badge fail" style="vertical-align:1px">FAIL / low-MEH</span>. Blocked from any quality claim; ships with the disclaimer you see when you pick it above. This is the same, unchanged engine code running live here.</p>
+      </div>
+
+      <div class="report-card">
+        <h3>Claude engine · blind pairwise test</h3>
+        <p class="report-note" style="margin-top:0;">Passed the absolute scoring bar (7–8/10) — but a fresh, independent professional songwriter was given the same brief with no knowledge of lyricsmith, and a separate blind judge scored both, unlabeled.</p>
+        <div class="headtohead">
+          <div class="h2h-row">
+            <span class="h-label">Lyricsmith sample</span>
+            <span class="h-track"><span class="h-fill" style="width:62%; background:var(--meh)"></span></span>
+            <span class="h-score">26/50</span>
+          </div>
+          <div class="h2h-row">
+            <span class="h-label">Independent writer</span>
+            <span class="h-track"><span class="h-fill" style="width:100%; background:var(--pass)"></span></span>
+            <span class="h-score">42/50</span>
+          </div>
+        </div>
+        <p class="report-note">The judge called it "not close." The constraint scaffold never got in the way — both songs kept structure fine — the gap was entirely in line-level craft: generic imagery vs. specific, earned detail. What you generate above with the Claude engine runs the same code, live, but has not itself been through this scoring process.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>lyricsmith · a hybrid constraint + LLM lyric generator</span>
+    <span class="mono">every generation on this page is real: it runs the actual pipeline live, including real Anthropic API calls for the Claude engine</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+
+  // Static UI metadata only (labels, default theme/mood to prefill the
+  // form, and the structural plan for the --explain toggle before a
+  // generation exists). None of this is generated content -- the actual
+  // lyrics always come from a live POST to /api/generate. Structure/rhyme
+  // scheme/syllable ranges are fixed per genre regardless of mood (verified
+  // against lyricsmith.styles.GENRE_PROFILES), so this stays accurate even
+  // before the first Generate click.
+  var GENRES = {
+    country: {
+      label: "Country", meta: "6 sections", theme: "leaving a small town for good", mood: "bittersweet",
+      order: [
+        {role:"Verse", scheme:"ABAB", syll:"8–11"},
+        {role:"Chorus", scheme:"AABB", syll:"6–9"},
+        {role:"Verse", scheme:"ABAB", syll:"8–11"},
+        {role:"Chorus", scheme:"AABB", syll:"6–9"},
+        {role:"Bridge", scheme:"ABAB", syll:"7–10"},
+        {role:"Chorus", scheme:"AABB", syll:"6–9"}
+      ]
+    },
+    pop: {
+      label: "Pop", meta: "8 sections", theme: "falling for someone at the worst possible time", mood: "euphoric",
+      order: [
+        {role:"Verse", scheme:"ABAB", syll:"7–10"},
+        {role:"Pre-chorus", scheme:"AABB", syll:"6–8"},
+        {role:"Chorus", scheme:"AABB", syll:"5–7"},
+        {role:"Verse", scheme:"ABAB", syll:"7–10"},
+        {role:"Pre-chorus", scheme:"AABB", syll:"6–8"},
+        {role:"Chorus", scheme:"AABB", syll:"5–7"},
+        {role:"Bridge", scheme:"ABCB", syll:"6–9"},
+        {role:"Chorus", scheme:"AABB", syll:"5–7"}
+      ]
+    },
+    folk_ballad: {
+      label: "Folk ballad", meta: "8 sections", theme: "a grandparent's house being sold", mood: "grieving",
+      order: [
+        {role:"Intro", scheme:"free", syll:"5–8"},
+        {role:"Verse", scheme:"ABCB", syll:"6–8"},
+        {role:"Verse", scheme:"ABCB", syll:"6–8"},
+        {role:"Chorus", scheme:"AABB", syll:"5–8"},
+        {role:"Verse", scheme:"ABCB", syll:"6–8"},
+        {role:"Chorus", scheme:"AABB", syll:"5–8"},
+        {role:"Verse", scheme:"ABCB", syll:"6–8"},
+        {role:"Outro", scheme:"free", syll:"5–8"}
+      ]
+    },
+    hip_hop: {
+      label: "Hip-hop", meta: "8 sections", theme: "proving people wrong after being counted out", mood: "defiant",
+      order: [
+        {role:"Intro", scheme:"free", syll:"8–14"},
+        {role:"Verse", scheme:"free", syll:"13–20"},
+        {role:"Chorus", scheme:"AABB", syll:"6–10"},
+        {role:"Verse", scheme:"free", syll:"13–20"},
+        {role:"Chorus", scheme:"AABB", syll:"6–10"},
+        {role:"Verse", scheme:"free", syll:"13–20"},
+        {role:"Chorus", scheme:"AABB", syll:"6–10"},
+        {role:"Outro", scheme:"free", syll:"6–10"}
+      ]
+    },
+    rock: {
+      label: "Rock", meta: "8 sections", theme: "a friendship that quietly ended", mood: "angry",
+      order: [
+        {role:"Intro", scheme:"free", syll:"4–7"},
+        {role:"Verse", scheme:"AABB", syll:"5–8"},
+        {role:"Chorus", scheme:"AABB", syll:"4–7"},
+        {role:"Verse", scheme:"AABB", syll:"5–8"},
+        {role:"Chorus", scheme:"AABB", syll:"4–7"},
+        {role:"Bridge", scheme:"ABAB", syll:"6–9"},
+        {role:"Chorus", scheme:"AABB", syll:"4–7"},
+        {role:"Outro", scheme:"free", syll:"4–7"}
+      ]
+    }
+  };
+
+  var order = ["country","pop","folk_ballad","hip_hop","rock"];
+  var state = { genre:"country", engine:"template", busy:false };
+
+  var genreGrid = document.getElementById("genreGrid");
+  order.forEach(function(key){
+    var g = GENRES[key];
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "genre-card"; btn.dataset.genre = key;
+    btn.setAttribute("aria-pressed", key === state.genre ? "true" : "false");
+    btn.innerHTML = '<span class="g-name">'+g.label+'</span><span class="g-meta">'+g.meta+'</span>';
+    btn.addEventListener("click", function(){ selectGenre(key); });
+    genreGrid.appendChild(btn);
+  });
+
+  var themeInput = document.getElementById("themeInput");
+  var moodInput = document.getElementById("moodInput");
+  var btnClaude = document.getElementById("btnClaude");
+  var btnTemplate = document.getElementById("btnTemplate");
+  var engineCallout = document.getElementById("engineCallout");
+  var explainToggle = document.getElementById("explainToggle");
+  var scaffoldPanel = document.getElementById("scaffoldPanel");
+  var generateBtn = document.getElementById("generateBtn");
+  var sheet = document.getElementById("sheet");
+
+  function selectGenre(key){
+    state.genre = key;
+    var g = GENRES[key];
+    themeInput.value = g.theme;
+    moodInput.value = g.mood;
+    Array.prototype.forEach.call(genreGrid.children, function(el){
+      el.setAttribute("aria-pressed", el.dataset.genre === key ? "true" : "false");
+    });
+    renderScaffold();
+  }
+
+  function renderEngineButtons(){
+    btnClaude.setAttribute("aria-pressed", state.engine === "claude" ? "true" : "false");
+    btnTemplate.setAttribute("aria-pressed", state.engine === "template" ? "true" : "false");
+
+    if (state.engine === "template"){
+      engineCallout.innerHTML = '<div class="callout warn"><span class="dot"></span><span><strong>Experimental offline fallback.</strong> Output may contain unclear or nonsensical phrasing, unresolved references, and imagery that doesn’t cohere into a clear narrative. Quality is not comparable to the Claude engine (gauntlet score: 3.5/10, FAIL/low-MEH — see the report below).</span></div>';
+    } else {
+      engineCallout.innerHTML = '<div class="callout info"><span class="dot"></span><span>Calls the real Anthropic API, one request per line with retries. A full song can take <strong>30 seconds to a couple of minutes</strong> and makes many real API calls.</span></div>';
+    }
+  }
+
+  function renderScaffold(){
+    if (explainToggle.checked){
+      var g = GENRES[state.genre];
+      var rows = g.order.map(function(s){
+        return '<tr><td>'+s.role+'</td><td>'+(s.scheme==="free" ? "(free / unrhymed)" : s.scheme)+'</td><td>'+s.syll+' syll</td></tr>';
+      }).join("");
+      scaffoldPanel.innerHTML = '<table class="scaffold-table"><thead><tr><th>Section</th><th>Rhyme scheme</th><th>Line length</th></tr></thead><tbody>'+rows+'</tbody></table>';
+      scaffoldPanel.hidden = false;
+    } else {
+      scaffoldPanel.hidden = true;
+    }
+  }
+
+  btnClaude.addEventListener("click", function(){ state.engine="claude"; renderEngineButtons(); });
+  btnTemplate.addEventListener("click", function(){ state.engine="template"; renderEngineButtons(); });
+  explainToggle.addEventListener("change", renderScaffold);
+
+  function renderSheet(data, engineKey){
+    var badge, badgeLabel;
+    if (engineKey === "template"){
+      badge = "fail"; badgeLabel = "engine gauntlet score: 3.5/10 · FAIL / low-MEH";
+    } else {
+      badge = "neutral"; badgeLabel = "live-generated just now · not individually scored";
+    }
+
+    var sectionsHtml = data.sections.map(function(s){
+      var schemeLabel = s.scheme === "free" ? "free / unrhymed" : s.scheme;
+      var linesHtml = s.lines.map(function(line, i){
+        var letter = (s.scheme !== "free" && s.scheme.length > i) ? s.scheme[i] : null;
+        var tag = (letter && letter !== "-") ? '<span class="rhyme-tag">'+letter+'</span>' : '<span class="rhyme-tag" style="opacity:.35">·</span>';
+        return '<div class="lyric-line">'+tag+'<span>'+escapeHtml(line)+'</span></div>';
+      }).join("");
+      return '<div class="section-block"><div class="section-label">'+s.role+' <span class="scheme">'+schemeLabel+'</span></div>'+linesHtml+'</div>';
+    }).join("");
+
+    var warnHtml = data.warnings > 0
+      ? '<div class="warn-box"><strong>'+data.warnings+' of '+data.total+' lines</strong> needed a fallback after retries — kept the best-scoring attempt rather than blocking generation. This just happened, live, in the request you triggered.</div>'
+      : '<div class="warn-box" style="background:var(--pass-soft); border-color:var(--pass);"><strong>0 of '+data.total+' lines</strong> needed a fallback — every line satisfied its syllable and rhyme constraints on an early attempt.</div>';
+
+    sheet.innerHTML =
+      '<div class="sheet-head">'+
+        '<div><div class="sheet-title serif">'+escapeHtml(data.title)+'</div>'+
+        '<div class="sheet-meta">'+GENRES[state.genre].label+' · '+escapeHtml(data.mood)+' · engine: '+(engineKey==="claude"?"claude":"template")+'</div></div>'+
+        '<span class="badge '+badge+'">'+badgeLabel+'</span>'+
+      '</div>'+
+      '<div class="sheet-sub">theme: “'+escapeHtml(data.theme)+'”</div>'+
+      sectionsHtml + warnHtml;
+
+    if (explainToggle.checked && data.explain){
+      var rows = data.explain.map(function(s){
+        return '<tr><td>'+s.role+'</td><td>'+(s.scheme==="free" ? "(free / unrhymed)" : s.scheme)+'</td><td>'+s.syll+' syll</td></tr>';
+      }).join("");
+      scaffoldPanel.innerHTML = '<table class="scaffold-table"><thead><tr><th>Section</th><th>Rhyme scheme</th><th>Line length</th></tr></thead><tbody>'+rows+'</tbody></table>';
+    }
+  }
+
+  function renderError(message){
+    sheet.innerHTML =
+      '<div class="sheet-head"><div class="sheet-title serif">Generation failed</div></div>'+
+      '<div class="error-box"><strong>Error:</strong> '+escapeHtml(message)+'</div>';
+  }
+
+  function escapeHtml(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  function setBusy(busy){
+    state.busy = busy;
+    generateBtn.disabled = busy;
+    generateBtn.classList.toggle("loading", busy);
+    generateBtn.textContent = busy
+      ? (state.engine === "claude" ? "Generating with Claude…" : "Generating…")
+      : "Generate";
+  }
+
+  function runGenerate(){
+    if (state.busy) return;
+    setBusy(true);
+    var body = {
+      theme: themeInput.value || GENRES[state.genre].theme,
+      genre: state.genre,
+      mood: moodInput.value || GENRES[state.genre].mood,
+      engine: state.engine
+    };
+    fetch("/api/generate", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(body)
+    }).then(function(resp){
+      return resp.json().then(function(data){ return {ok: resp.ok, data: data}; });
+    }).then(function(result){
+      setBusy(false);
+      if (!result.ok){
+        renderError(result.data && result.data.detail ? result.data.detail : "Unknown server error.");
+        return;
+      }
+      renderSheet(result.data, state.engine);
+    }).catch(function(err){
+      setBusy(false);
+      renderError("Could not reach the generation server (" + err.message + "). If you're viewing this page on its own, it needs to be served by the lyricsmith web app (web/app.py), not opened as a standalone file.");
+    });
+  }
+
+  generateBtn.addEventListener("click", runGenerate);
+
+  // initial state: populate the form and show a real result at rest, using
+  // the free/instant template engine so the page loads immediately without
+  // spending an API call on every visitor by default.
+  selectGenre("country");
+  renderEngineButtons();
+  runGenerate();
+
+})();
+</script>
+</body>
+</html>

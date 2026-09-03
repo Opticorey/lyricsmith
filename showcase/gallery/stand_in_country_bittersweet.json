@@ -1,0 +1,529 @@
+{
+  "spec": {
+    "genre": "country",
+    "mood": "bittersweet",
+    "theme": "leaving a small town for good"
+  },
+  "engine": "stand_in (integrator-authored, approximating intended ClaudeLineGenerator quality -- see ARCHITECTURE.md section 9)",
+  "stand_in": true,
+  "song": {
+    "title": "Ten Miles Past the Water Tower",
+    "theme": "leaving a small town for good",
+    "genre": "country",
+    "mood": "bittersweet",
+    "sections": [
+      {
+        "role": "verse",
+        "index": 0,
+        "constraints": [
+          {
+            "role": "verse_0_line_0",
+            "syllable_range": [
+              8,
+              11
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/x"
+          },
+          {
+            "role": "verse_0_line_1",
+            "syllable_range": [
+              8,
+              11
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/x"
+          },
+          {
+            "role": "verse_0_line_2",
+            "syllable_range": [
+              8,
+              11
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/x"
+          },
+          {
+            "role": "verse_0_line_3",
+            "syllable_range": [
+              8,
+              11
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/x"
+          }
+        ],
+        "lines": [
+          "I loaded up the truck at dawn",
+          "and left the screen door swinging shut",
+          "the fields were silver, still half gone",
+          "the tank was full, the choice was cut"
+        ]
+      },
+      {
+        "role": "chorus",
+        "index": 0,
+        "constraints": [
+          {
+            "role": "chorus_0_line_0",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "chorus_0_line_1",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "chorus_0_line_2",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "chorus_0_line_3",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          }
+        ],
+        "lines": [
+          "Town, I loved you nice and slow",
+          "but I've got somewhere else to go",
+          "these roads all lead away from home",
+          "so I'll just have to learn to roam"
+        ]
+      },
+      {
+        "role": "verse",
+        "index": 1,
+        "constraints": [
+          {
+            "role": "verse_1_line_0",
+            "syllable_range": [
+              8,
+              11
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/x"
+          },
+          {
+            "role": "verse_1_line_1",
+            "syllable_range": [
+              8,
+              11
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/x"
+          },
+          {
+            "role": "verse_1_line_2",
+            "syllable_range": [
+              8,
+              11
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/x"
+          },
+          {
+            "role": "verse_1_line_3",
+            "syllable_range": [
+              8,
+              11
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/x"
+          }
+        ],
+        "lines": [
+          "My mother's roses climbed the fence",
+          "she waved until I turned the bend",
+          "I told myself it made more sense",
+          "to leave before the story'd end"
+        ]
+      },
+      {
+        "role": "chorus",
+        "index": 1,
+        "constraints": [
+          {
+            "role": "chorus_1_line_0",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "chorus_1_line_1",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "chorus_1_line_2",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "chorus_1_line_3",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          }
+        ],
+        "lines": [
+          "Town, I loved you nice and slow",
+          "but I've got somewhere else to go",
+          "these roads all lead away from home",
+          "so I'll just have to learn to roam"
+        ]
+      },
+      {
+        "role": "bridge",
+        "index": 0,
+        "constraints": [
+          {
+            "role": "bridge_0_line_0",
+            "syllable_range": [
+              7,
+              10
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/"
+          },
+          {
+            "role": "bridge_0_line_1",
+            "syllable_range": [
+              7,
+              10
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/"
+          },
+          {
+            "role": "bridge_0_line_2",
+            "syllable_range": [
+              7,
+              10
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/"
+          },
+          {
+            "role": "bridge_0_line_3",
+            "syllable_range": [
+              7,
+              10
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x/"
+          }
+        ],
+        "lines": [
+          "If you drive out past the tower",
+          "you will see the house is dark tonight",
+          "you will see how green it is this hour",
+          "and know I left with all my might"
+        ]
+      },
+      {
+        "role": "chorus",
+        "index": 2,
+        "constraints": [
+          {
+            "role": "chorus_2_line_0",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "chorus_2_line_1",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "chorus_2_line_2",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "chorus_2_line_3",
+            "syllable_range": [
+              6,
+              9
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          }
+        ],
+        "lines": [
+          "Town, I loved you nice and slow",
+          "but I've got somewhere else to go",
+          "these roads all lead away from home",
+          "so I'll just have to learn to roam"
+        ]
+      }
+    ],
+    "metadata": {}
+  },
+  "warnings": [],
+  "validation_reports": [
+    {
+      "role": "verse_0_line_0",
+      "line": "I loaded up the truck at dawn",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '//x/x///' does not closely match target 'x/x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_0_line_1",
+      "line": "and left the screen door swinging shut",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "role": "verse_0_line_2",
+      "line": "the fields were silver, still half gone",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x///x///' does not closely match target 'x/x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_0_line_3",
+      "line": "the tank was full, the choice was cut",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x///x///' does not closely match target 'x/x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_0_line_0",
+      "line": "Town, I loved you nice and slow",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '/////x/' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_0_line_1",
+      "line": "but I've got somewhere else to go",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '////////' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_0_line_2",
+      "line": "these roads all lead away from home",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '////x///' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_0_line_3",
+      "line": "so I'll just have to learn to roam",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '////////' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_1_line_0",
+      "line": "My mother's roses climbed the fence",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "role": "verse_1_line_1",
+      "line": "she waved until I turned the bend",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '//x///x/' does not closely match target 'x/x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_1_line_2",
+      "line": "I told myself it made more sense",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '////////' does not closely match target 'x/x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_1_line_3",
+      "line": "to leave before the story'd end",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '//x/xx//' does not closely match target 'x/x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_1_line_0",
+      "line": "Town, I loved you nice and slow",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '/////x/' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_1_line_1",
+      "line": "but I've got somewhere else to go",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '////////' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_1_line_2",
+      "line": "these roads all lead away from home",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '////x///' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_1_line_3",
+      "line": "so I'll just have to learn to roam",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '////////' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "bridge_0_line_0",
+      "line": "If you drive out past the tower",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '/////x/x' does not closely match target 'x/x/x/x/' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "bridge_0_line_1",
+      "line": "you will see the house is dark tonight",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '///x///x/' does not closely match target 'x/x/x/x/' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "bridge_0_line_2",
+      "line": "you will see how green it is this hour",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '/////////x' does not closely match target 'x/x/x/x/' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "bridge_0_line_3",
+      "line": "and know I left with all my might",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x///////' does not closely match target 'x/x/x/x/' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_2_line_0",
+      "line": "Town, I loved you nice and slow",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '/////x/' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_2_line_1",
+      "line": "but I've got somewhere else to go",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '////////' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_2_line_2",
+      "line": "these roads all lead away from home",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '////x///' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_2_line_3",
+      "line": "so I'll just have to learn to roam",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '////////' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    }
+  ],
+  "originality_report": {
+    "cliche_hits": {},
+    "max_ngram_overlap": 0.0,
+    "overlap_flagged_lines": [],
+    "clean": true,
+    "summary": "Clean: no cliche phrases and no n-gram overlap above threshold."
+  },
+  "all_lines_valid": true
+}

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lyricsmith"
+version = "0.1.0"
+description = "A song lyrics generator that enforces structure, rhyme, and meter as hard constraints and fills content with an LLM."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "pronouncing>=0.2.0",
+    "click>=8.1",
+]
+
+[project.optional-dependencies]
+llm = ["anthropic>=0.34"]
+dev = ["pytest>=8.0", "pytest-cov>=5.0"]
+web = ["fastapi>=0.110", "uvicorn>=0.29", "anthropic>=0.34"]
+
+[project.scripts]
+lyricsmith = "lyricsmith.cli.main:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

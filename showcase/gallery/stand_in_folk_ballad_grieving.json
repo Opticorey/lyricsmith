@@ -1,0 +1,681 @@
+{
+  "spec": {
+    "genre": "folk_ballad",
+    "mood": "grieving",
+    "theme": "a grandparent's house being sold"
+  },
+  "engine": "stand_in (integrator-authored, approximating intended ClaudeLineGenerator quality -- see ARCHITECTURE.md section 9)",
+  "stand_in": true,
+  "song": {
+    "title": "The Kitchen Clock Still Runs",
+    "theme": "a grandparent's house being sold",
+    "genre": "folk_ballad",
+    "mood": "grieving",
+    "sections": [
+      {
+        "role": "intro",
+        "index": 0,
+        "constraints": [
+          {
+            "role": "intro_0_line_0",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": null,
+            "rhyme_target_word": null,
+            "stress_pattern": null
+          },
+          {
+            "role": "intro_0_line_1",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": null,
+            "rhyme_target_word": null,
+            "stress_pattern": null
+          },
+          {
+            "role": "intro_0_line_2",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": null,
+            "rhyme_target_word": null,
+            "stress_pattern": null
+          },
+          {
+            "role": "intro_0_line_3",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": null,
+            "rhyme_target_word": null,
+            "stress_pattern": null
+          }
+        ],
+        "lines": [
+          "They sold the house last spring",
+          "the ivy came down with the sign",
+          "I drove past just to see it",
+          "and kept the engine running"
+        ]
+      },
+      {
+        "role": "verse",
+        "index": 0,
+        "constraints": [
+          {
+            "role": "verse_0_line_0",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_0_line_1",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_0_line_2",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "C",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_0_line_3",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          }
+        ],
+        "lines": [
+          "The kitchen clock still runs",
+          "on nobody's time now",
+          "the porch swing lost its chain",
+          "but I still hear it somehow"
+        ]
+      },
+      {
+        "role": "verse",
+        "index": 1,
+        "constraints": [
+          {
+            "role": "verse_1_line_0",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_1_line_1",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_1_line_2",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "C",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_1_line_3",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          }
+        ],
+        "lines": [
+          "She kept the good plates hidden",
+          "for company that never came",
+          "the phone still has her numbers",
+          "and every name sounds the same"
+        ]
+      },
+      {
+        "role": "chorus",
+        "index": 0,
+        "constraints": [
+          {
+            "role": "chorus_0_line_0",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/"
+          },
+          {
+            "role": "chorus_0_line_1",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/"
+          },
+          {
+            "role": "chorus_0_line_2",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/"
+          },
+          {
+            "role": "chorus_0_line_3",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/"
+          }
+        ],
+        "lines": [
+          "I kept the kitchen key",
+          "though no one's left to see",
+          "the yard has learned to grieve",
+          "and some part of me won't leave"
+        ]
+      },
+      {
+        "role": "verse",
+        "index": 2,
+        "constraints": [
+          {
+            "role": "verse_2_line_0",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_2_line_1",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_2_line_2",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "C",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_2_line_3",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          }
+        ],
+        "lines": [
+          "The attic still smells like cedar",
+          "boxes nobody claimed",
+          "the stairs still creak at the landing",
+          "just like they never were named"
+        ]
+      },
+      {
+        "role": "chorus",
+        "index": 1,
+        "constraints": [
+          {
+            "role": "chorus_1_line_0",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/"
+          },
+          {
+            "role": "chorus_1_line_1",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/"
+          },
+          {
+            "role": "chorus_1_line_2",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/"
+          },
+          {
+            "role": "chorus_1_line_3",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/"
+          }
+        ],
+        "lines": [
+          "I kept the kitchen key",
+          "though no one's left to see",
+          "the yard has learned to grieve",
+          "and some part of me won't leave"
+        ]
+      },
+      {
+        "role": "verse",
+        "index": 3,
+        "constraints": [
+          {
+            "role": "verse_3_line_0",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "A",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_3_line_1",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_3_line_2",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "C",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          },
+          {
+            "role": "verse_3_line_3",
+            "syllable_range": [
+              6,
+              8
+            ],
+            "rhyme_slot": "B",
+            "rhyme_target_word": null,
+            "stress_pattern": "x/x/x/x"
+          }
+        ],
+        "lines": [
+          "I'll keep the kitchen clock running",
+          "on nobody's time at all",
+          "I'll leave the porch light burning",
+          "and answer if it ever calls"
+        ]
+      },
+      {
+        "role": "outro",
+        "index": 0,
+        "constraints": [
+          {
+            "role": "outro_0_line_0",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": null,
+            "rhyme_target_word": null,
+            "stress_pattern": null
+          },
+          {
+            "role": "outro_0_line_1",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": null,
+            "rhyme_target_word": null,
+            "stress_pattern": null
+          },
+          {
+            "role": "outro_0_line_2",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": null,
+            "rhyme_target_word": null,
+            "stress_pattern": null
+          },
+          {
+            "role": "outro_0_line_3",
+            "syllable_range": [
+              5,
+              8
+            ],
+            "rhyme_slot": null,
+            "rhyme_target_word": null,
+            "stress_pattern": null
+          }
+        ],
+        "lines": [
+          "Someone else mows the lawn now",
+          "the swing set's finally gone",
+          "but the kitchen clock keeps time",
+          "in a house that isn't mine"
+        ]
+      }
+    ],
+    "metadata": {}
+  },
+  "warnings": [],
+  "validation_reports": [
+    {
+      "role": "intro_0_line_0",
+      "line": "They sold the house last spring",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "role": "intro_0_line_1",
+      "line": "the ivy came down with the sign",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "role": "intro_0_line_2",
+      "line": "I drove past just to see it",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "role": "intro_0_line_3",
+      "line": "and kept the engine running",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "role": "verse_0_line_0",
+      "line": "The kitchen clock still runs",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x/x///' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_0_line_1",
+      "line": "on nobody's time now",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '//////' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_0_line_2",
+      "line": "the porch swing lost its chain",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x/////' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_0_line_3",
+      "line": "but I still hear it somehow",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '///////' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_1_line_0",
+      "line": "She kept the good plates hidden",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '//x///x' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_1_line_1",
+      "line": "for company that never came",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '//x///x/' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_1_line_2",
+      "line": "the phone still has her numbers",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x/////x' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_1_line_3",
+      "line": "and every name sounds the same",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x/xx//x/' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_0_line_0",
+      "line": "I kept the kitchen key",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "role": "chorus_0_line_1",
+      "line": "though no one's left to see",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '//////' does not closely match target 'x/x/x/' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_0_line_2",
+      "line": "the yard has learned to grieve",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x/////' does not closely match target 'x/x/x/' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_0_line_3",
+      "line": "and some part of me won't leave",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x//////' does not closely match target 'x/x/x/' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_2_line_0",
+      "line": "The attic still smells like cedar",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x/x////x' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_2_line_1",
+      "line": "boxes nobody claimed",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '/x////' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_2_line_2",
+      "line": "the stairs still creak at the landing",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x////x/x' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_2_line_3",
+      "line": "just like they never were named",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '////x//' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_1_line_0",
+      "line": "I kept the kitchen key",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "role": "chorus_1_line_1",
+      "line": "though no one's left to see",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '//////' does not closely match target 'x/x/x/' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_1_line_2",
+      "line": "the yard has learned to grieve",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x/////' does not closely match target 'x/x/x/' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "chorus_1_line_3",
+      "line": "and some part of me won't leave",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x//////' does not closely match target 'x/x/x/' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_3_line_0",
+      "line": "I'll keep the kitchen clock running",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '//x/x//x' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_3_line_1",
+      "line": "on nobody's time at all",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '///////' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_3_line_2",
+      "line": "I'll leave the porch light burning",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern '//x///x' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "verse_3_line_3",
+      "line": "and answer if it ever calls",
+      "ok": true,
+      "errors": [
+        "(non-fatal) stress pattern 'x/x///x/' does not closely match target 'x/x/x/x' -- advisory only, does not affect ok (see validate_line docstring)"
+      ]
+    },
+    {
+      "role": "outro_0_line_0",
+      "line": "Someone else mows the lawn now",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "role": "outro_0_line_1",
+      "line": "the swing set's finally gone",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "role": "outro_0_line_2",
+      "line": "but the kitchen clock keeps time",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "role": "outro_0_line_3",
+      "line": "in a house that isn't mine",
+      "ok": true,
+      "errors": []
+    }
+  ],
+  "originality_report": {
+    "cliche_hits": {},
+    "max_ngram_overlap": 0.0,
+    "overlap_flagged_lines": [],
+    "clean": true,
+    "summary": "Clean: no cliche phrases and no n-gram overlap above threshold."
+  },
+  "all_lines_valid": true
+}

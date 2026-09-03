@@ -1,0 +1,3 @@
+# Installs the lyricsmith package itself (editable) plus the `web` extra
+# (fastapi, uvicorn, anthropic) defined in pyproject.toml.
+-e .[web]

@@ -1,0 +1,80 @@
+{
+  "project": "lyricsmith",
+  "build_completed_at": "2026-09-02",
+  "engineering_status": {
+    "tests": "273/273 passing",
+    "modules_built": ["core", "prosody", "styles", "originality", "constraints", "generation", "cli"],
+    "modules_documented_but_not_fully_built": [
+      {
+        "module": "showcase",
+        "gap": "ARCHITECTURE.md section 3 specifies a real src/lyricsmith/showcase package producing showcase/gallery/*.json across the full demo matrix. Only 2 hand-authored stand-in JSON fixtures exist (showcase/gallery/stand_in_*.json), not a generator module, and they cover 2 of 5 demo genres.",
+        "found_by": "whole-system critic, final gate"
+      }
+    ],
+    "architecture_deviations": [
+      {
+        "area": "RunLog (ARCHITECTURE.md section 4)",
+        "gap": "Spec requires every rejected candidate line per slot and per-stage timing. Actual harness RunLog only stores the final line + a warning string per slot, and one aggregate elapsed_seconds, not per-stage.",
+        "found_by": "whole-system critic, final gate"
+      },
+      {
+        "area": "stand_in flag location (ARCHITECTURE.md section 9)",
+        "gap": "Spec says RunLog.metadata['stand_in']; actual gallery JSON has stand_in as a top-level key with metadata left empty.",
+        "found_by": "whole-system critic, final gate"
+      },
+      {
+        "area": "performance budget, generation/ClaudeLineGenerator syllable search (ARCHITECTURE.md section 6)",
+        "gap": "TemplateLineGenerator full-song generation runs 46-453ms depending on genre, within the 500ms budget on average but pop ran ~0.9s in one round-2 measurement before later optimization; final harness runs are within budget.",
+        "found_by": "generation module builder, self-reported"
+      }
+    ],
+    "failure_isolation": "verified live by the whole-system critic: unknown genre raises a clean ConstraintError (not a crash), missing ANTHROPIC_API_KEY / missing anthropic package raises a clean GenerationError at construction time, CLI turns all of these into clean exit-2/exit-1 messages with no traceback.",
+    "licensing_policy": "verified live: originality/checks.py's 40-phrase cliche list is hand-invented generic AI-lyric phrasing, no line traceable to a real song; ngram_overlap only checks against a caller-supplied corpus (default empty); no copyrighted lyrics found anywhere in the package by grep."
+  },
+  "critic_gauntlet": {
+    "engine_1_TemplateLineGenerator": {
+      "description": "offline, zero-dependency fallback engine (no LLM)",
+      "rounds": [
+        {"round": 1, "avg_score": 0.5, "tier": "FAIL", "issue": "pure word-salad, no grammar (noun-bag construction)"},
+        {"round": 2, "avg_score": 2.0, "tier": "FAIL", "issue": "grammatical sentences but severe POV/person mixing within songs, single-word mechanical repetition (relocated from nouns to adjectives), semantically incoherent slot pairings, no chorus hook repetition"},
+        {"round": 3, "avg_score": 3.5, "tier": "FAIL / low-MEH", "issue": "POV locked and chorus hook now repeats verbatim (real fixes), but mechanical repetition relocated a third time (to prepositions 'down'/'along'), one song's entire subject is an unresolved 'they' with no antecedent, and new uncaught nonsense collocations remain"}
+      ],
+      "final_verdict": "BLOCKED per this project's 3-round retry cap. Real, measured progress every round (0.5 to 2.0 to 3.5 average), but never reached the 7/10 pass threshold. Shipped with a strong disclaimer (not a soft 'lower quality' label) in the CLI (--engine template, the default) and README, per the critic's exact recommended language: 'Experimental offline fallback. Output may contain unclear or nonsensical phrasing, unresolved references, and imagery that doesn't cohere into a clear narrative. Quality is not comparable to the standard generation path.'",
+      "path_to_actually_fixing_it": "the critic's own round-3 recommendation for a hypothetical round 4 (not executed, out of scope per the 3-round cap): bind every song's pronoun subject to an explicit referent (never a bare unresolved 'they'), and extend the non-repetition cap to prepositions, not just nouns/adjectives."
+    },
+    "engine_2_ClaudeLineGenerator_stand_in": {
+      "description": "the intended LLM-backed hybrid engine. No ANTHROPIC_API_KEY or network path to the Anthropic API was available in this build sandbox, so the class was built as real, complete, tested code (via mocked unit tests) but never exercised live. For gauntlet/showcase purposes, the build's integrator hand-authored 2 songs directly against the same machine-generated constraint scaffolds the real engine would receive, as a stand-in -- see ARCHITECTURE.md section 9.",
+      "anchor_gauntlet_result": {
+        "song_1": {"title": "Ten Miles Past the Water Tower", "genre": "country/bittersweet", "score": 7, "tier": "PASS (at the floor)", "note": "strong verses, weak bridge (reach-for-rhyme filler)"},
+        "song_2": {"title": "The Kitchen Clock Still Runs", "genre": "folk_ballad/grieving", "score": 8, "tier": "PASS", "note": "strongest submission in the anchor-based gauntlet; one internal-consistency slip (porch swing vs. swing set)"}
+      },
+      "final_gate_blind_pairwise_result": {
+        "method": "a fresh subagent with zero knowledge of lyricsmith was given the same brief as song_2 and asked to write an independent professional folk ballad. A second fresh, blind subagent then scored both songs unlabeled, head-to-head, on the same criteria.",
+        "outcome": "lyricsmith's stand-in song (Song A) scored 26/50; the independent reference song (Song B) scored 42/50. The judge called it 'not close.' Song A's imagery stayed generic/categorical and its grandmother character was almost entirely absent; Song B had specific, earned sensory detail and a chorus that resolved into a real emotional argument.",
+        "interpretation": "the anchor-based pass (7-8/10) is real but was graded against absolute craft anchors, not against what a genuinely strong independent songwriter can do on the same brief. Passing the gauntlet floor is not the same as reaching the ceiling. This is an honest calibration finding, not a failure of the pipeline: the constraint scaffold (structure/rhyme/meter) did not get in the way of either song's quality -- both adhered to the brief's structure fine -- the gap is entirely in line-level craft, which is exactly the piece the real ClaudeLineGenerator (untested live in this sandbox) is responsible for."
+      },
+      "final_verdict": "PASSES the gauntlet's stated threshold, but ships with an honest caveat: these 2 hand-authored stand-in samples show the constraint system CAN support professional-caliber structure, and the anchor-based craft floor was cleared, but blind head-to-head against an independent professional attempt at the same brief showed a real quality gap. The actual ClaudeLineGenerator has never been run live (no API key in this sandbox) and must be validated against this same rubric -- ideally including a blind pairwise round -- with a real API key before any 'professional songwriter quality' claim is made about lyricsmith's shipped output."
+    }
+  },
+  "live_test_2026_09_02": {
+    "what_happened": "Corey supplied a real ANTHROPIC_API_KEY to test --engine claude live for the first time. The very first run failed on every single line.",
+    "bug_found": {
+      "symptom": "ClaudeLineGenerator.generate_line raised TypeError: Messages.create() got an unexpected keyword argument 'temperature' on every call, on this build sandbox's installed anthropic SDK build (reports version 1.3.0, but its Messages.create() signature has no temperature/top_p/top_k params at all -- consistent with an internal/proxied package rather than the standard public PyPI anthropic client, likely specific to this cloud build sandbox's network routing).",
+      "fix": "generate_line now tries the call with temperature= first and, only on a TypeError whose message mentions 'temperature', retries once without it, so the generator works across SDK builds that do and don't expose that param. Fixed in src/lyricsmith/generation/__init__.py, full test suite re-verified (273/273 still passing).",
+      "caveat": "this specific error may be an artifact of this build sandbox's environment rather than something Corey's own machine would hit -- the fix is safe either way (falls back gracefully, never breaks a working SDK) but the root cause of *why* this sandbox's anthropic package lacks temperature was not fully diagnosed."
+    },
+    "real_generations_after_the_fix": [
+      {"genre": "country", "mood": "bittersweet", "theme": "leaving a small town for good", "lines_needing_fallback": 11, "total_lines": 24, "quick_take": "solid -- consistent third-person-plural narrator, one real hook, one odd phrase ('left the county torch')"},
+      {"genre": "folk_ballad", "mood": "grieving", "theme": "a grandparent's house being sold", "lines_needing_fallback": 7, "total_lines": 28, "quick_take": "weakest of the three -- mechanical 'The X verbs Y' sentence pattern repeated most lines, some over-personification ('the stairs refuse the doorway') echoing a flaw the template engine also had"},
+      {"genre": "pop", "mood": "euphoric", "theme": "falling for someone at the worst possible time", "lines_needing_fallback": 18, "total_lines": 24, "quick_take": "strongest of the three -- coherent extended metaphor (running red lights / burning bridges / dancing on the ledge) sustained across the whole song, real hook"}
+    ],
+    "honest_read": "quality varies noticeably run to run and genre to genre -- not a uniform 'now it's professional-grade' result. The pop and country samples are a clear step up from both the offline template engine and roughly in the range of (pop) or a bit below (country) the earlier winning reference song from the blind pairwise test; the folk_ballad sample is closer to MEH and shares a specific flaw (abstract-noun personification) with the offline engine's known failure mode. None of these three were put through the formal gauntlet/blind-pairwise process (Corey asked for a fast, non-technical spot check, not the full pipeline) -- treat this as a first look, not a final quality verdict.",
+    "cost_note": "each full-song generation makes many API calls (one per line, plus up to 2 retries per line when a line doesn't meet its syllable/rhyme constraint on the first try -- e.g. the pop song's 18-of-24 lines needing a fallback means most lines used all 3 attempts). 3 songs generated here; be aware of this multiplier before generating in bulk."
+  },
+  "recommended_next_steps_for_corey": [
+    "Run `lyricsmith generate --engine claude --theme ... --genre ... --mood ...` with your own ANTHROPIC_API_KEY and put a handful of real outputs through the same blind-pairwise process before trusting the 'professional songwriter' framing for real use.",
+    "If the offline --engine template path matters to you (e.g. for a no-API-key demo mode), the concrete round-4 fixes above (bind 'they'/'we' to an explicit referent, extend repetition-avoidance to prepositions) are well-scoped and would likely move it out of FAIL tier.",
+    "Build the showcase module for real (ARCHITECTURE.md section 3) if you want the full demo-matrix gallery this doc originally specified, rather than the 2 hand-authored stand-in fixtures currently in showcase/gallery/.",
+    "Tighten RunLog to actually capture rejected candidate lines and per-stage timing per ARCHITECTURE.md section 4, if you want the audit trail the architecture doc promises."
+  ]
+}
